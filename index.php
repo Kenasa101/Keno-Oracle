@@ -218,10 +218,10 @@ $past_to_hit +=1;
 
 $ratio =(($past_to_hit-1)/4);
 
-  $red = $ratio <= 3.50;
-  $blue = $ratio >= 4.50 && $ratio < 5.50;
-  $green = $ratio  >= 5.50 && $ratio < 6.50;
-  $gold = $ratio >= 6.50;
+  $red = $ratio <= 4.50;
+  $blue = $ratio >= 5.50 && $ratio < 6.50;
+  $green = $ratio  >= 6.50 && $ratio < 7.50;
+  $gold = $ratio >= 7.50;
    
   $color = "black";
 if($gold)
