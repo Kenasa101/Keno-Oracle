@@ -17,7 +17,7 @@ Example,
     
         
 
-## Using Information correctly ( method disclosed )    
+#### Using Information correctly ( method disclosed )    
 • Keno games draw 20/80 numbers, that's 1/4 chances for every single number on the board.         
 • A single number "One Spot" costs $1 and Pays $3, that's a $1 profit.      
 • A single number "One Spot" has a 1/4 chance of winning.   
@@ -27,7 +27,7 @@ Because the game pays $3 over a $1 bet, that means we can use a famous method by
   
 The famous method is to increase your bet amount, so much that the total cost of all your games will be less than the win amount if the game was to win - meaning the profit outweighs the total cost.     
    
-#### How can you do that  ?    
+##### How can you do that  ?    
 > Several methods in existence work, but most methods are based on Arbitrage betting,    
 > Let's say that you're flipping a coin for $1 and the win amount is $3 - Arbitrage betting is when you bet $1 on heads and $1 on tails - always walking away with the bookys money.     
  
@@ -57,12 +57,12 @@ This method requires you to keep betting on EVENS until you get a win, using the
    
 ( SAME CHART AS ABOVE )   
 
-### HOW DOES THIS WORK ?     
+#### HOW DOES THIS WORK ?     
 • We are reducing the game to a simple WIN or LOSE scenario - A WIM or LOSE scenario is the same as Heads or Tails     
 • Here we have reduced the game to apply Arbitrage Betting on the simplified game.        
 
 
-## Associated Projects                  
+### Associated Projects                  
 The project uses information from the following projects,       
 ####  Keno API        
 https://github.com/JGolafshan/keno-api               
@@ -72,7 +72,7 @@ https://github.com/Empire-of-E-Projects/ActiveProxy    b
 https://github.com/Empire-of-E-Projects/Gitployment    
 
     
-## Technology
+### Technology
 * HTML    
 * CSS    
 * JavaScript    
