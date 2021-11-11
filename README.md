@@ -9,7 +9,10 @@
 #### Preliminary Test Release using Proxy Recycler    
 [![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
   
-
+#### Deployment to Heroku
+Create a FREE account first if you do not yet have one:     
+https://signup.heroku.com/      
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)    
 
 ## History     
 The KENO ORACLE was designed to educate people on methods that have been used by professional gamblers for years.   
