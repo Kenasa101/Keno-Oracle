@@ -27,15 +27,14 @@ Because the game pays $3 over a $1 bet, that means we can use a famous method by
   
 The famous method is to increase your bet amount, so much that the total cost of all your games will be less than the win amount if the game was to win - meaning the profit outweighs the total cost.     
    
-How can you do that  ?    
-• Several methods in existence work, but most methods are based on Arbitrage betting,    
- Let's say that you're flipping a coin for $1 and the win amount is $3 - Arbitrage betting is when you bet $1 on heads and $1 on tails - always walking away with the bookys money.     
+#### How can you do that  ?    
+> Several methods in existence work, but most methods are based on Arbitrage betting,    
+> Let's say that you're flipping a coin for $1 and the win amount is $3 - Arbitrage betting is when you bet $1 on heads and $1 on tails - always walking away with the bookys money.     
  
-This (simplistic example) method is called - Arbitrage Betting.     
+> This (simplistic example) method is called - Arbitrage Betting.     
+> We have a few ways when studying the KENO system in Australia to outwit the random system.      
    
-We have a few ways when studying the KENO system in Australia to outwit the random system.      
-   
-A am not a math wizard, so please bare with me....    
+> A am not a math wizard, so please bare with me....    
   
 Here is Method 1 : the simplist way i could explain it.     
   
