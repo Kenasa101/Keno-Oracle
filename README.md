@@ -85,7 +85,7 @@ The project uses information from the following projects,
 ####  Keno API        
 https://github.com/JGolafshan/keno-api               
 #### Active Proxy    
-https://github.com/Empire-of-E-Projects/ActiveProxy    b 
+https://github.com/Empire-of-E-Projects/ActiveProxy     
 #### GitPloyment      
 https://github.com/Empire-of-E-Projects/Gitployment    
 
