@@ -293,7 +293,7 @@ global $testing;
 $parse = parse_url($target);
 $host = $parse['host'];
 $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL,"http://keno-oracle.ml/get.php?url=".urlencode($target));
+  curl_setopt($ch, CURLOPT_URL,"http://".$_SERVER['HTTP_HOST']."/get.php?url=".urlencode($target));
   curl_setopt($ch, CURLOPT_POST, false);
   curl_setopt($ch, CURLOPT_REFERER, $host);
   curl_setopt($ch, CURLOPT_HEADER, 0);
