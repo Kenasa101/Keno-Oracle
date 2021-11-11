@@ -31,7 +31,20 @@ One of these methodologies she taught me will be discussed in this project, and 
 This project was designed strictly for educational purposes only, it is NOT to be taken as gambling or financial advice under any circumstances - "I'm not Einstein, i make mistakes.",
     
 ####    Screenshot & Information      
-![screen](IMG_20211111_015323.png)     
+![screen](IMG_20211111_015323.png)      
+##### Oldest Number     
+Answers the question of which number hasn't been drawn for the longest ?     
+##### Game Depth    
+How long has it been since that number came up, how many games was it  ?    
+##### Probability of Depth        
+This gives you your Probability Reading in an easy way to understand.       
+  
+>  If 1/4 = 0.25/1 Then 4 games = 100% of odds or ( x1 )      
+   
+#### Q/A            
+> Q. Chart Has x7 on my number - Why ?    
+ - The chart shows how many occurrences of each number have been found in the game depth.     
+  
     
         
 
