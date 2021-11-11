@@ -1,6 +1,18 @@
 # KENO ORACLE    
 ### Australian Keno Website Analysis System using PHP development as the directed access method - initially designed for Offline PHP usage, it has been adapted to work online using a random proxy recycler.
       
+## Installing     
+* Edit the project to remove the Proxy Request method - that methods only for Heroku Example.       
+* Start a local PHP server.    
+* Launch locally.         
+     
+### Heroku Deployment       
+Create a FREE account first if you do not yet have one:     
+https://signup.heroku.com/      
+   
+ [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+         
+
 ## History     
 The KENO ORACLE was designed to educate people on methods that have been used by professional gamblers for years.   
     
