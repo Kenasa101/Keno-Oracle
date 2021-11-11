@@ -7,7 +7,7 @@
 * Launch locally.         
      
 #### Preliminary Test Release using Proxy Recycler    
-[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
+[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.herokuapp.com/) 
   
 #### Deployment to Heroku
 Create a FREE account first if you do not yet have one:     
