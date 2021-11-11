@@ -6,13 +6,7 @@
 * Start a local PHP server.    
 * Launch locally.         
      
-### Heroku Deployment       
-Create a FREE account first if you do not yet have one:     
-https://signup.heroku.com/      
-   
- [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-         
-### Preliminary Test Release
+#### Preliminary Test Release using Proxy Recycler    
 [![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
   
 
