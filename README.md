@@ -76,7 +76,7 @@ This method requires you to keep betting on EVENS until you get a win, using the
 ( SAME CHART AS ABOVE )   
 
 #### HOW DOES THIS WORK ?     
-• We are reducing the game to a simple WIN or LOSE scenario - A WIM or LOSE scenario is the same as Heads or Tails     
+• We are reducing the game to a simple WIN or LOSE scenario - A WIN or LOSE scenario is the same as Heads or Tails     
 • Here we have reduced the game to apply Arbitrage Betting on the simplified game.        
 
 
