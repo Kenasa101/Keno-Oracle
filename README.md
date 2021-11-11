@@ -7,11 +7,11 @@
 * Launch locally.         
  
 
-#### Official Online Release using Proxy Recycler    
+#### Official Online Release using Proxy Recycler ( Australian's Only Restricted )       
 [![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
   
      
-#### Preliminary Test Release using Proxy Recycler    
+#### Heroku Deployment using Proxy Recycler ( Worldwide Access Project )       
 [![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.herokuapp.com/) 
   
 #### Deployment to Heroku
