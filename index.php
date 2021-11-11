@@ -292,7 +292,7 @@ function file_get($target)
 {
 global $testing;
 $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, dirname(__FILE__)."/get.php?url=".urlencode($target));
+  curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['HTTP_HOST']."/get.php?url=".urlencode($target));
   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
