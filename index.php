@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set("Australia/Sydney");
 
-// KENO ENDPOINTS
+// KENO ENDPOINTS 
 // ----------------
 // HISTORY,
 $history_api="/v2/info/history";
@@ -79,7 +79,7 @@ $current_numbers = $current['draw'];
 
 if(strlen("$current_numbers") <= 1)
 {
-exit('LOADING INFORMATION FAILED<br>AUTOMATICALLY RETRYING...<br><script type="text/JavaScript">setTimeout(function(){window.location.href = window.location.href;},5000);</script>');
+exit('LOADING INFORMATION FAILED : '.$response.'<br>AUTOMATICALLY RETRYING...<br><script type="text/JavaScript">setTimeout(function(){window.location.href = window.location.href;},10000);</script>');
 }
 else
 {
@@ -287,20 +287,25 @@ function hasParam($param)
 }
 
 
-
 function file_get($target)
 {
 global $testing;
+$parse = parse_url($target);
+$host = $parse['host'];
 $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['HTTP_HOST']."/get.php?url=".urlencode($target));
+  curl_setopt($ch, CURLOPT_URL,"http://keno-oracle.ml/get.php?url=".urlencode($target));
+  curl_setopt($ch, CURLOPT_POST, false);
+  curl_setopt($ch, CURLOPT_REFERER, $host);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $outputData = curl_exec ($ch);
 $error = curl_error($ch);
   curl_close ($ch);
- if($testing){return file_get_contents($target);}
   return $outputData.$error;
 }
 

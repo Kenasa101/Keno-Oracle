@@ -3,9 +3,19 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 
-$proxies = get_file(urldecode('https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=10000&country=all'));
+$proxies = get_file(urldecode('https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=5000&country=all'));
 
 $proxyList = explode(PHP_EOL,$proxies);
+
+if(strlen($proxyList[0]) < 6 )
+{
+   $proxies = file_get_contents("prox.history");
+   $proxyList = explode(PHP_EOL,$proxies);
+}
+else
+{
+    file_put_contents("prox.history", $proxies);
+}
 
 $proxy = trim(file_get_contents("ok.prox"));
 if (hasParam('proxy'))
@@ -70,17 +80,17 @@ curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_COOKIEJAR, $cookieFile);
 curl_setopt($ch, CURLOPT_COOKIEFILE,  $cookieFile);
 curl_setopt($ch, CURLOPT_COOKIESESSION, false);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$time = 10;
+$time = 4;
 if($doLoad)
 {
 $time = 2;
 }
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $time);
-curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+curl_setopt($ch, CURLOPT_TIMEOUT, 8);
 curl_setopt($ch, CURLOPT_USERAGENT, $agent);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -117,8 +127,8 @@ $ch = curl_init();
   curl_setopt($ch, CURLOPT_REFERER, $host);
 
   curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-  curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 5);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
