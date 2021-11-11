@@ -12,8 +12,8 @@ One of these methodologies she taught me will be discussed in this project, and 
 
 This project was designed strictly for educational purposes only, it is NOT to be taken as gambling or financial advice under any circumstances - "I'm not Einstein, i make mistakes.",
     
-Example,    
-![screen](2020_06_22_18_47_19.gif)     
+####    Screenshot & Information      
+![screen](IMG_20211111_015323.png)     
     
         
 
