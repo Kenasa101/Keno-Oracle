@@ -5,6 +5,11 @@
 * Edit the project to remove the Proxy Request method - that methods only for Heroku Example.       
 * Start a local PHP server.    
 * Launch locally.         
+ 
+
+#### Official Online Release using Proxy Recycler    
+[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
+  
      
 #### Preliminary Test Release using Proxy Recycler    
 [![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.herokuapp.com/) 
