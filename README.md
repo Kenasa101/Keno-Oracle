@@ -12,6 +12,10 @@ https://signup.heroku.com/
    
  [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
          
+### Preliminary Test Release
+[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
+  
+
 
 ## History     
 The KENO ORACLE was designed to educate people on methods that have been used by professional gamblers for years.   
@@ -89,7 +93,3 @@ https://github.com/Empire-of-E-Projects/Gitployment
 * CSS    
 * JavaScript    
 * PHP   
-
-### Preliminary Test Release
-[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
-  
