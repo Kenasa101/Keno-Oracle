@@ -389,9 +389,9 @@ return $count_empty == 0;
 $percent = ((($past_to_hit-1)/$highest)*100);
 $percent_friendly = number_format($percent, 1 ) . '%';
 
-  echo '<span style="color:'.$color.';">'.$last.'</span><span style="font-size:14px;"> 🎲 '.($past_to_hit-1).'</span><span style="font-size:16px;"><br>GAME '.$current_game_number.'</span><br><span style="font-size:13px;">'.$current_numbers_string.'</span><br><span style="font-size:15px; color:'.$color.';">x'.(($past_to_hit-1)/4).'</span><br><span style="font-size:10px;">Estimated Chance of WIN = '.$percent_friendly.'</span>'; 
-
-?></div>
+  echo '<span style="color:'.$color.';">'.$last.'</span><span style="font-size:14px;"> 🎲 '.($past_to_hit-1).'</span><span style="font-size:16px;"><br>GAME '.$current_game_number.'</span><br><span style="font-size:13px;">'.$current_numbers_string.'</span><br><span style="font-size:15px; color:'.$color.';">x'.(($past_to_hit-1)/4).'</span>
+       <br><span style="font-size:10px;">Estimated Chance of WIN (Game Depth / Highest Record) = '.$percent_friendly.'</span>';?>
+</div>
 
         </div>
         </div>
@@ -437,7 +437,7 @@ $percent_friendly = number_format($percent, 1 ) . '%';
             <div class="col-12">
                 <p class="mbr-text mb-0 mbr-fonts-style display-7">Copyright © 2021 - Keno Oracle©<br>All Rights Reserved.</p><br>
             </div>
-<div style="font-size:10px;">This website should not be taken as gambling or financial advice, we give no guarantee&nbsp;in the accuracy of the information contained on this website.</div>
+<div style="font-size:10px;">This website should not be taken as gambling or financial advice, we give no guarantee&nbsp;in the accuracy of the information contained on this website.<br>Your Welcome 👍</div>
         </div>
     </div>
 </section>
