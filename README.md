@@ -51,7 +51,7 @@ This gives you your Probability Reading in an easy way to understand.
 #### Using Information correctly ( method disclosed )    
 • Keno games draw 20/80 numbers, that's 1/4 chances for every single number on the board.         
 • A single number "One Spot" costs $1 and Pays $3, that's a $2 profit.      
-• A single number "One Spot" has a 1/4 chances of winning ( this is important for probability ).   
+• A single number "One Spot" has a 1/4 chance of winning (this is important for probability).   
 • Let's do some math,          
     
 Because the game pays $3 over a $1 bet, that means we can use a famous method by secret gamblers to always come out with profit.     
