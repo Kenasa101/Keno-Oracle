@@ -43,7 +43,7 @@ This gives you your Probability Reading in an easy way to understand.
    
 #### Q/A            
 > Q. Chart Has x7 on my number - Why ?    
- - The chart shows how many occurrences of each number have been found in the game depth.     
+ - The original chart shows how many occurrences of each number have been found in the game depth, however the new chart on the official website shows the game depth for each number.     
   
     
         
