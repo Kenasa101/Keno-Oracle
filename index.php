@@ -1,336 +1,7 @@
 <?php
-date_default_timezone_set("Australia/Sydney");
-
-// KENO ENDPOINTS 
-// ----------------
-// HISTORY,
-$history_api="/v2/info/history";
-// --------------- 
-// LIVE DRAW, 
-$live_api="/v2/games/kds";
-// --------------- 
-// TRENDING NUMBERS,
-$trending_api="/v2/info/trends";
-// ---------------
-// HOT COLD
-$hotcold_api="/v2/info/hotCold";
-// ---------------
-// JACKPOTS,
-$jackpot_api="/v2/info/jackpots";
-
-// CODE START
-// ACT = NT + TAS + SA 
-// NSW 
-// VIC
-
-$states = ["ACT", "NSW", "QLD", "VIC", "WA", "NT", "SA", "TAS"];
-global $highest;
-$highest = trim(file_get_contents("highest.log"));
-$selected_state = $states[0];
-if(hasParam('state'))
-{
-  $selected_state = $_REQUEST['state'];
-}
-$continue = false;
-foreach($states as $state)
-{
-  if(strtolower($state) == strtolower($selected_state))
-   {
-      $continue = true;
-   }
-}
-if(!$continue)
-{
- exit("NO VALID STATE PROVIDED");
-}
-
-$pos = strtolower($selected_state);
-
-if($pos == "nt" || $pos == "tas" || $pos == "sa")
-{
- $selected_state = "ACT";
-}
-elseif($pos == "wa" || $pos == "qld")
-{
-  exit("THIS STATE IS NOT SUPPORTED");
-}
-else
-{
-  $selected_state = strtoupper($selected_state);
-}
-
-$api = "https://api-info-".strtolower($selected_state).".keno.com.au";
-$state = "?jurisdiction=$selected_state";
-
-$testing = false;
-
-
-
-// GET CURRENT DRAW NUMBER
-
-$url = $api.$live_api.$state;
-if($testing){$url="responses/live.json";}
-//echo $url."<br>";
-$response = file_get($url);
-$json = json_decode($response,true);
-$current = $json['current'];
-$current_game_number = $current['game-number'];
-$current_numbers = $current['draw'];
-
-if(strlen("$current_numbers") <= 1)
-{
-exit('LOADING INFORMATION FAILED : '.$response.'<br>AUTOMATICALLY RETRYING...<br><script type="text/JavaScript">setTimeout(function(){window.location.href = window.location.href;},10000);</script>');
-}
-else
-{
-$current_numbers_string = "";
-foreach($current_numbers as $no)
-{
-$current_numbers_string.=$no.' ';
-}
-$current_end = $current['closed'];
-$current_game_date = explode("T",$current_end)[0];
-$current_game_time = explode("T",$current_end)[1];
-$current_game_time = explode(".",$current_game_time)[0];
-$current_game_year = explode("-",$current_game_date)[0];
-$current_game_month = explode("-",$current_game_date)[1];
-$current_game_day = explode("-",$current_game_date)[2];
-$current_time = new DateTime($current_game_date.' '.$current_game_time);
-
-$tod = getdate();
-$year = $tod['year'];
-$month = $tod['mon'];
-$day = $tod['mday'];
-
-$year = $year > $current_game_year ? $year: $current_game_year;
-$month = $month > $current_game_month ? $month: $current_game_month;
-$day = $day > $current_game_day ? $day: $current_game_day;
-
-
-$date_now = $year .'-'.$month.'-'.$day;
-
-//echo $date_now;
-
-$timediff = $current_time->diff(new DateTime());
-$minutes = $timediff->format('%i');
-$seconds = $timediff->format('%s');
-$max = 165000;
-$loadtime = $max - (($minutes>=1)?($minutes*60000+$seconds*1000):($seconds*1000));
-
-if($testing)
-{
-$loadtime = 60000;
-}
-
-//echo ($loadtime);
-
-// LOAD BACKWARDS
-$amountToGet = 50;
-if($current_game_number <= 50)
-{
- $amountToGet = $current_game_number-1;
-}
-
-$history_params ="&date=".$date_now."&starting_game_number=".($current_game_number-$amountToGet)."&number_of_games=".$amountToGet."&page_size=".$amountToGet."&page_number=1";
-
-$url = $api.$history_api.$state.$history_params;
-if($testing){$url="responses/history.json";}
-//echo $url;
-
-$selected = array();
-$hits = array();
-$all = 79;
-$now = 0;
-while($now != ($all+1))
-{
-   $hits[$now] = 0;
-   $now ++;
-}
-
-
-
-$response = file_get($url);
-$json = json_decode($response,true);
-$items = $json['items'];
-
-if(count($items) < 1){
-$date_now = $year .'-'.$month.'-'.($day-1);
-
-$history_params ="&date=".$date_now."&starting_game_number=".($current_game_number-$amountToGet)."&number_of_games=".$amountToGet."&page_size=".$amountToGet."&page_number=1";
-
-$url = $api.$history_api.$state.$history_params;
-
-$response = file_get($url);
-$json = json_decode($response,true);
-$items = $json['items'];
-if(count($items) < 1)
-{
-    exit('LOADING NUMBERS FAILED on '.$url.'<br>AUTOMATICALLY RETRYING...<br><script type="text/JavaScript">setTimeout(function(){
-    window.location.href = window.location.href;},5000);</script>');
-}
-}
-$max = count($items);
-
-$now = 0;
-$newItems[0] = $current;
-while($now != $max)
-{
-  $todo = $max-$now;
-  $newItems[$now+1] = $items[$todo];
-  $now++;
-}
-
-
-$found_last = false;
-$last = 0;
-$last_draw_no = 0;
-$last_nums = array();
-$past_to_hit = 0;
-
-
-
-foreach($newItems as $draw)
-{
- if($draw["game-number"] != null)
- {
-  $draw_no = $draw['game-number'];
-  $numbers = $draw["draw"];
-
-      foreach($numbers as $no)
-      {
-          $hits[$no] += 1;
-          if(isLast($no,$hits) &! $found_last)
-          {
-             $found_last = true;
-             $last_nums = $numbers;
-             $last = $no;
-             $last_draw_no = $draw_no;
-          }
-        
-       }
- if($found_last)
-   {
-      break;
-   }
-$past_to_hit +=1;
-}
-}
-
-$ratio =(($past_to_hit-1)/4);
-
-  $red = $ratio <= 4.50;
-  $blue = $ratio >= 5.50 && $ratio < 6.50;
-  $green = $ratio  >= 6.50 && $ratio < 7.50;
-  $gold = $ratio >= 7.50;
-   
-  $color = "black";
-if($gold)
-   {
-      $color = "gold";
-   }
-  if($green)
-   {
-      $color = "rgb(121, 255, 77)";
-   }
-if($blue)
-   {
-      $color = "rgb(0, 153, 255)";
-   }
-if($red)
-   {
-      $color = "rgb(255, 51, 51)";
-   }
-
-
-if($past_to_hit > $highest)
-{
-  file_put_contents("highest.log",$past_to_hit);
-  $highest = $past_to_hit;
-}
-
-
-
-
-$html = '';
-$num_now = 0;
-$ten = 0;
-
-foreach($hits as $numHits)
-{
-if($num_now <= 79)
-{
-if($ten == 0){ $html .= '<tr>';}
-$hitsnow =$hits[$num_now+1];
-$opacity = 1.0;
-if($hitsnow <= 9 && $hitsnow >= 1)
-{
-  $opacity ='0.'.($hitsnow);
-}
-
-$html .= '<td class="body-item mbr-fonts-style display-7" style="font-size:13px; opacity:'.$opacity.';text-align:center;"><span style="font-size:8px;">x '.$hitsnow.'</span><br>'.($num_now+1).'</td>';
-
-$ten ++;
-if($ten == 10){ $html .= '</tr>'; $ten= 0;}
-$num_now ++;
-}
-}
-}
-
-
-
-function hasParam($param) 
-{
-   if (array_key_exists($param, $_REQUEST))
-    {
-       return array_key_exists($param, $_REQUEST);
-    }
-}
-
-
-function file_get($target)
-{
-global $testing;
-$parse = parse_url($target);
-$host = $parse['host'];
-$ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL,"http://".$_SERVER['HTTP_HOST']."/get.php?url=".urlencode($target));
-  curl_setopt($ch, CURLOPT_POST, false);
-  curl_setopt($ch, CURLOPT_REFERER, $host);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$outputData = curl_exec ($ch);
-$error = curl_error($ch);
-  curl_close ($ch);
-  return $outputData.$error;
-}
-
-
-
-function isLast($no,$hits)
-{
-$count_empty = 0;
-$allHits = 0;
-  foreach($hits as $hit)
-   {
-     if(!$hit >= 1 &! $allHits == 0)
-       {
-         $count_empty ++;
-         $last = $allHits+1;
-      }
-     $allHits++;
-   }
-return $count_empty == 0;
-}
-
-
-
+include("backend.php");
 ?>
-
+ 
 <!DOCTYPE html>
 <html >
 <head>
@@ -359,7 +30,31 @@ return $count_empty == 0;
   <link rel="stylesheet" href="assets/datatables/data-tables.bootstrap4.min.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
+  <style>
+.numberCircle {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    padding: 3px;
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+}
+.numberCircleWin {
+    width: 10px;
+    height: 10px;
+    padding: 3px;
+    background: radial-gradient(circle at 4px 4px, #09f, #001);
+    border-radius:50%;
+    border: 2px solid #666;
+	  box-shadow: 15px 10px 10px -14px rgba(0,0,0,0.4);
+    color: white;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+}
+</style>
   
   
 </head>
@@ -374,10 +69,10 @@ return $count_empty == 0;
     <div class="container">
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
-                <h2 class="align-center mbr-bold mbr-white pb-3 mbr-fonts-style display-1">THE<br>KENO ORACLE</h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light mbr-white pb-3 mbr-fonts-style display-5"><?php echo $selected_state; ?> Keno Analysis System</h3>
-                <br><span style="font-size:11px; color:white;">Also available in <a href="/?state=act">ACT, NT, TAS, SA</a> - <a href="/?state=nsw">NSW</a> & <a href="/?state=vic">VIC</a></span>'
-                
+                <h2 class="align-center mbr-bold mbr-white pb-1 mbr-fonts-style display-1">THE<br>KENO ORACLE</h2>
+                <h3 class="mbr-section-subtitle align-center mbr-light mbr-white pb-3 mbr-fonts-style display-5">Australian Keno Analysis System</h3>
+             
+<h4 class="mbr-section-subtitle align-center mbr-light mbr-white pb-1 mbr-fonts-style display-5" style="font-size:11px; color:white;">Available in ACT, NT, TAS & SA</h4>
             </div>
         </div>
     </div>
@@ -389,18 +84,63 @@ return $count_empty == 0;
 
     <div class="container">
         <div class="inner-container" style="width: 100%;">
-            <div class="section-text align-center mbr-fonts-style display-5" style="font-size: 80px;"><?php
+            <div class="section-text align-center mbr-fonts-style pb-2 display-5" style="font-size: 80px;line-height: 0.1;">
 
-$percent = ((($past_to_hit-1)/$highest)*100);
-$percent_friendly = number_format($percent, 1 ) . '%';
+<?php
 
-  echo '<span style="color:'.$color.';">'.$last.'</span><span style="font-size:14px;"> 🎲 '.($past_to_hit-1).'</span><span style="font-size:16px;"><br>GAME '.$current_game_number.'</span><br><span style="font-size:13px;">'.$current_numbers_string.'</span><br><span style="font-size:15px; color:'.$color.';">x'.(($past_to_hit-1)/4).'</span>
-       <br><span style="font-size:10px;">Estimated Chance of WIN (Game Depth / Highest Record) = '.$percent_friendly.'</span>';?>
+$percent = ((($past_to_hit)/$highest)*100);
+$percent = number_format($percent, 1 ) . '%';
+$percent_average = ((($past_to_hit)/$average)*100);
+$percent_average = number_format($percent_average, 1 ) . '%';
+
+$percent_evens = (($last_evens/$highest_evens)*100);
+$percent_evens = number_format($percent_evens, 1 ) . '%';
+$percent_evens_average = (($last_evens/$average_evens)*100);
+$percent_evens_average = number_format($percent_evens_average, 1 ) . '%';
+
+$left_up_str = number_format($left_up);
+$saved_up_str = number_format($saved_up);
+
+$left_up_cost_str = number_format($left_up_cost);
+$saved_up_cost_str = number_format($saved_up_cost);
+
+$left_up_win = $left_up*3;
+$saved_up_win = $saved_up*3;
+
+$left_up_win_str = number_format($left_up*3);
+$saved_up_win_str = number_format($saved_up*3);
+
+$left_up_profit_str = number_format((($left_up*3)-$left_up_cost));
+$saved_up_profit_str= number_format((($saved_up*3)-$saved_up_cost));
+
+
+echo '
+<span style="'.$colorBack.'">'.$last.'</span><span style="font-size:14px;"> 🎲 '.($past_to_hit).'  🔃 '.($last_evens).'</span><span style="font-size:16px;">
+<br>GAME '.$current_game_number.'</span> <span style="font-size:13px;" id="timeBox"></span>
+
+<br><span style="font-size:13px;">'.$current_numbers_string.'</span>
+<br><span style="font-size:15px; '.$colorBack.';">x'.$ratio.'</span>
+<br><span style="font-size:11px;">🎲 '.$percent.' </span><span style="font-size:10px;"> rarity ('.($past_to_hit).'/'.$highest.')</span>
+<span style="font-size:11px;">🔃 '.$percent_evens.' </span><span style="font-size:10px;"> evens rarity ('.$last_evens.'/'.$highest_evens.')</span>
+
+<br><span style="font-size:11px;">🎲 '.$percent_average.' </span><span style="font-size:10px;"> average rarity ('.($past_to_hit).'/'.$average.')</span>
+<span style="font-size:11px;">🔃 '.$percent_evens_average.' </span><span style="font-size:10px;"> average evens rarity ('.$last_evens.'/'.$average_evens.')</span>
+
+
+<br>
+
+
+
+
+
 </div>
+';?>
+
 
         </div>
         </div>
 </section>
+
 <section class="section-table cid-sO61aXDGBJ" id="table1-2" style="background:white;margin-top:-20px;" align="center">
 
   
@@ -412,15 +152,18 @@ $percent_friendly = number_format($percent, 1 ) . '%';
 
 
         <div class="container" style="margin:0px; padding:0px;">
-          <table class="table" cellspacing="2" style="background:<?php echo $color; ?>;width:80%;table-layout:fixed;margin:0px; padding:0px;">
+          <table class="table" cellspacing="2" style="<?php echo $colorBackNoText; ?> width:80%;table-layout:fixed;margin:0px; padding:0px;">
           <tbody><?php echo $html; ?></tbody>
          </table>
 <br>
         </div>
         <div class="container table-info-container">
           
-            <div class="col-12">
-                <p class="mbr-text mb-0 mbr-fonts-style display-7" style="font-size:12px;">RED = HIGHEST RISK<br>BLACK = HIGH RISK ( COMMON )<br>BLUE = MEDIUM RISK<br>GREEN = LOW RISK ( RARE )<br>GOLD = BEST CHANCE ( LEGENDARY )</p><br><image src="og_image.png" width="90%"/>
+            <div class="col-13">
+<?php echo '
+<span style="font-size:11px; '.$colorBack.'">DOUBLE DOWN STATS</span><br>
+<span style="font-size:9px;">from start📈 bet:$'.$saved_up_str.' profit:(win:$'.$saved_up_win_str.': - cost:$'.$saved_up_cost_str.') = $'.$saved_up_profit_str.'<br>to highest📉 bet:$'.$left_up_str.' profit:(win:$'.$left_up_win_str.' - cost:$'.$left_up_cost_str.') = $'.$left_up_profit_str.'</span>'; ?><br><br>
+                <p class="mbr-text mb-0 mbr-fonts-style display-7" style="font-size:12px;">RED = HIGHEST RISK<br>GOLD = BEST CHANCE ( LEGENDARY )</p><span style="font-size:9px;">For more information on how this website is used, visit the <a href="https://github.com/Empire-of-E-Projects/Keno-Oracle">GitHub Project</a></span><br><image src="og_image.png" width="90%"/>
             </div>
 <br>
         </div>
@@ -442,17 +185,36 @@ $percent_friendly = number_format($percent, 1 ) . '%';
             <div class="col-12">
                 <p class="mbr-text mb-0 mbr-fonts-style display-7">Copyright © 2021 - Keno Oracle©<br>All Rights Reserved.</p><br>
             </div>
-<div style="font-size:10px;">This website should not be taken as gambling or financial advice, we give no guarantee&nbsp;in the accuracy of the information contained on this website.<br>Your Welcome 👍</div>
+<div style="font-size:10px;">This website should not be taken as gambling or financial advice, we give no guarantee&nbsp;in the accuracy of the information contained on this website.<br>Your Welcome 👍<br>Information collected for analysis is provided by the <a href="https://keno.com.au">Official Keno Website</a>, for more information visit the <a href="https://github.com/Empire-of-E-Projects/Keno-Oracle">GitHub Project</a></div>
+
         </div>
     </div>
 </section>
 
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
   <script>
    var loadtime = <?php echo $loadtime; ?>;
-   setTimeout(function(){
+   var now = 1000;
+var timer = 0;
+timer= setInterval(function(){
+var left = (loadtime-now)/1000;
+var timeBox = document.getElementById("timeBox");
+ if(left <= 0)
+    {
     window.location.href = window.location.href;
-   }, loadtime);
+    clearInterval(timer);
+    }
+  var nowTime = millisToMinutesAndSeconds(left*1000);
+  timeBox.innerHTML = nowTime;
+  now = now+1000;
+ }, 1000);
+
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + "m " + (seconds < 10 ? '0' : '') + seconds+"s";
+}
   </script>
   <script src="assets/popper/popper.min.js"></script>
   <script src="assets/tether/tether.min.js"></script>

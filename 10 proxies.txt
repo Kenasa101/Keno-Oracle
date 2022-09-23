@@ -1,0 +1,12 @@
+WebShare Burners - Proxy:Port, Username, Password
+
+209.127.191.180:9279:hfpthwde:cf7c09e26vpv
+45.95.96.132:8691:hfpthwde:cf7c09e26vpv
+45.95.96.187:8746:hfpthwde:cf7c09e26vpv
+45.95.96.237:8796:hfpthwde:cf7c09e26vpv
+193.8.127.189:9271:hfpthwde:cf7c09e26vpv
+45.94.47.66:8110:hfpthwde:cf7c09e26vpv
+45.94.47.108:8152:hfpthwde:cf7c09e26vpv
+193.8.56.119:9183:hfpthwde:cf7c09e26vpv
+45.95.99.226:7786:hfpthwde:cf7c09e26vpv
+45.95.99.20:7580:hfpthwde:cf7c09e26vpv
