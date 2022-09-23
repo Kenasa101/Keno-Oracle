@@ -8,7 +8,7 @@
 * Launch locally.         
  
 #### Heroku Deployment ( Worldwide Access Project )       
-[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://noprox-keno.herokuapp.com/) 
+[![demo button](https://i.imgur.com/aaa86Vf.png)](https://noprox.herokuapp.com/) 
   
 #### Deployment to Heroku
 Create a FREE account first if you do not yet have one:     
