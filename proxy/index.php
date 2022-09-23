@@ -10,13 +10,13 @@ $url = urldecode($_REQUEST['url']);
 }
 $host = parse_url($url, PHP_URL_HOST);
 // use private rotating proxy
-$proxy = '209.127.191.180:9279';
-$proxyauth = 'hfpthwde:cf7c09e26vpv';
+// $proxy = '209.127.191.180:9279';
+// $proxyauth = 'hfpthwde:cf7c09e26vpv';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);   
 
-curl_setopt($ch, CURLOPT_PROXY, $proxy);
-curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+//curl_setopt($ch, CURLOPT_PROXY, $proxy);
+//curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 
 $agent = 'Mozilla/5.0 (Linux; Android 10; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.50 Mobile Safari/537.36';
@@ -63,5 +63,4 @@ function closeConnection($session)
 {
 curl_close($session);
 }
-?>   'Referer: '.$host,
-    'Connection: close
+?>
