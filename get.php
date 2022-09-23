@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-
+/**
 $proxies = get_file(urldecode('https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=5000&country=all'));
 
 $proxyList = explode(PHP_EOL,$proxies);
@@ -23,7 +23,7 @@ if (hasParam('proxy'))
 $proxy = urlDecode($_GET['proxy']);
 }
 
-
+**/
 if (!hasParam('url'))
 {
   echo "no url provided";
@@ -32,7 +32,8 @@ if (!hasParam('url'))
 else
 {
   $url = urlDecode($_GET['url']);
-  $result = proxy($proxy, $url);
+ // $result = proxy($proxy, $url);
+  $result = get_file($url);
   echo $result;
   exit;
 }
@@ -127,8 +128,8 @@ $ch = curl_init();
   curl_setopt($ch, CURLOPT_REFERER, $host);
 
   curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
-  curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
