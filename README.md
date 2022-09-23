@@ -7,13 +7,8 @@
 * Start a local PHP server.    
 * Launch locally.         
  
-
-#### Official Online Release using Proxy Recycler ( Australian's Only Restricted )       
-[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.ml) 
-  
-     
-#### Heroku Deployment using Proxy Recycler ( Worldwide Access Project )       
-[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://keno-oracle.herokuapp.com/) 
+#### Heroku Deployment ( Worldwide Access Project )       
+[![demo button](https://i.imgur.com/3Ugm8J7.jpg)](https://noprox-keno.herokuapp.com/) 
   
 #### Deployment to Heroku
 Create a FREE account first if you do not yet have one:     
