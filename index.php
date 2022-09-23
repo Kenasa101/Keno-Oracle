@@ -14,7 +14,7 @@ include("backend.php");
 
 <meta property="og:title" content="KENO ORACLE" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="https://keno-oracle.ml/og_image.png" />
+<meta property="og:image" content="/og_image.png" />
 <meta property="og:url" content="" />
 <meta property="og:description" content="Keno Oracle is an automated system that provides analysis and predictions on the Australian Keno System." />
 
