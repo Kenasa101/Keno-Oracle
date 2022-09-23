@@ -20,6 +20,9 @@ $hotcold_api="/v2/info/hotCold";
 // JACKPOTS,
 $jackpot_api="/v2/info/jackpots";
 
+Example,
+https://api-info-act.keno.com.au/v2/info/history?jurisdiction=act
+
 ```
 ## Installing     
 * Edit the project to remove the Proxy Request method - that methods only for Heroku Example.       
