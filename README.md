@@ -2,6 +2,25 @@
 ### Australian Keno Website Analysis System using PHP development as the directed access method - initially designed for Offline PHP usage, it has been adapted to work online using a random proxy recycler.
       
 ( proxy removed )
+
+Uses official hidden Keno Website API,
+```
+// HISTORY,
+$history_api="/v2/info/history";
+// --------------- 
+// LIVE DRAW, 
+$live_api="/v2/games/kds";
+// --------------- 
+// TRENDING NUMBERS,
+$trending_api="/v2/info/trends";
+// ---------------
+// HOT COLD
+$hotcold_api="/v2/info/hotCold";
+// ---------------
+// JACKPOTS,
+$jackpot_api="/v2/info/jackpots";
+
+```
 ## Installing     
 * Edit the project to remove the Proxy Request method - that methods only for Heroku Example.       
 * Start a local PHP server.    
