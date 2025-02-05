@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 // get target
-$url = "https://example.com";
+$url = "https://kenoexample.com";
 if(hasParam('url'))
 {
 $url = urldecode($_REQUEST['url']);
