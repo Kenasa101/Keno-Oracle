@@ -10,7 +10,7 @@ include("backend.php");
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets/images/ico.png-128x128.png" type="image/x-icon">
   <meta name="description" content="The Keno Oracle is an automated system to provide analysis and predictions on the Australian Keno System.">
-  <title>KENO ORACLE</title>
+  <title>web node KENO ORACLE</title>
 
 <meta property="og:title" content="KENO ORACLE" />
 <meta property="og:type" content="article" />
